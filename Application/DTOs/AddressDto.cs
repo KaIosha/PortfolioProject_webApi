@@ -1,6 +1,6 @@
-﻿namespace Core.Entities
+﻿namespace Application.DTOs
 {
-    public class Address : EntityBase
+    public class AddressDto
     {
         public int? Number { get; set; }
         public string? Street { get; set; }

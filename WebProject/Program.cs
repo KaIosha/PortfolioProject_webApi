@@ -1,4 +1,8 @@
 
+using System;
+using Infrastructure;
+using Microsoft.EntityFrameworkCore;
+
 namespace WebProject
 {
     public class Program
@@ -14,6 +18,12 @@ namespace WebProject
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(
+                    builder.Configuration.GetConnectionString("DefaultConnection"));
+            }); 
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

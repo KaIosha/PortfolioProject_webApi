@@ -1,11 +1,15 @@
 ﻿namespace Core.Entities
 {
-   public class Owner : EntityBase
+    public class Owner : EntityBase
     {
-        public string FullName { get; set; }
-        public string profile { get; set; }
-        public string Avatar { get; set; }
+        public required string FullName { get; set; }
+        public required string profile { get; set; }
+        public string? Avatar { get; set; }
 
-        public Address Address { get; set; }
+        public Guid AddressId { get; set; }
+        public Address Address { get; set; } = null!;
+
+        public ICollection<PortfolioItem> PortfolioItems { get; set; } = new List<PortfolioItem>();
+
     }
 }

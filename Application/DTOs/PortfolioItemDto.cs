@@ -1,12 +1,10 @@
-﻿namespace Core.Entities
+﻿namespace Application.DTOs
 {
-    public class PortfolioItem : EntityBase
+    public class PortfolioItemDto
     {
         public required string ProjectName { get; set; }
         public required string ImageUrl { get; set; }
         public required string Description { get; set; }
-
-        public Guid OwnerId { get; set; }
-        public Owner Owner { get; set; } = null!;
     }
+
 }

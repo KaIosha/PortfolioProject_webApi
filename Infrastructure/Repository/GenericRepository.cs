@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Interfaces;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-    internal class GenericRepository<T> : IGenericReposotiry<T> where T : class
+    public class GenericRepository<T> : IGenericReposotiry<T> where T : class
     {
         private readonly DataContext _contex;
         private DbSet<T> table;
@@ -42,7 +43,7 @@ namespace Infrastructure.Repository
             await table.AddAsync(Entity);
         }
 
-        public  void Update(T entity)
+        public void Update(T entity)
         {
             table.Update(entity);
         }

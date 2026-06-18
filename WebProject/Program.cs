@@ -1,6 +1,11 @@
 
 using System;
-using Infrastructure;
+using Application.Interfaces;
+using Application.Services.OwnerServices;
+using Application.Services.ProjectServices;
+using Core.Interfaces;
+using Infrastructure.Data;
+using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
 namespace WebProject
@@ -17,6 +22,11 @@ namespace WebProject
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            builder.Services.AddScoped<IOwnerService, OwnerService>();
+            builder.Services.AddScoped<IProjectService, ProjectService > ();
+
 
             builder.Services.AddDbContext<DataContext>(options =>
             {

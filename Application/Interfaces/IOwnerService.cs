@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Application.DTOs;
-using Core.Entities;
+﻿using Application.DTOs.OwnerDTOs;
 
 namespace Application.Interfaces
 {
     public interface IOwnerService
     {
-        Task<IEnumerable<OwnerDto>> GetAllProjects();
 
-        Task<OwnerDto?> GetByIdAsync(Guid id);
+        Task<OwnerDto?> GetOwnerWithDetailsAsync(Guid id);
+        Task<IEnumerable<PortfolioItemDto>> GetProjectsAsync(Guid ownerId);
 
-        Task CreateAsync(OwnerDto dto);
+        Task<Guid> CreateAsync(CreateOwnerDto dto);
+
+        Task UpdateAsync(Guid id, UpdateOwnerDto dto);
+
+        Task DeleteAsync(Guid id);
     }
 }

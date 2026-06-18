@@ -42,18 +42,18 @@ namespace Application.Services.OwnerServices
                 }).ToList()
 
             };
-            await unitOfWork.Owners.InsertAsync(NewOwner);
+            await unitOfWork.SpecificOwners.InsertAsync(NewOwner);
             await unitOfWork.SaveAsync();
             return NewOwner.Id;
         }
 
         public async Task DeleteAsync(Guid id)
         {
-            var owner = await unitOfWork.Owners.GetByIdAsync(id);
+            var owner = await unitOfWork.SpecificOwners.GetByIdAsync(id);
             if (owner == null)
                 throw new Exception("User Not Exsitssssssssss");
 
-            await unitOfWork.Owners.DeleteAsync(id);
+            await unitOfWork.SpecificOwners.DeleteAsync(id);
             await unitOfWork.SaveAsync();
         }
 
@@ -88,7 +88,7 @@ namespace Application.Services.OwnerServices
 
             public async Task<IEnumerable<PortfolioItemDto>> GetProjectsAsync(Guid ownerId)
             {
-                var owner = await unitOfWork.Owners.GetByIdAsync(ownerId);
+                var owner = await unitOfWork.SpecificOwners.GetByIdAsync(ownerId);
 
                 if (owner == null)
                     throw new Exception("The Owner isn't Exsist");
@@ -103,7 +103,7 @@ namespace Application.Services.OwnerServices
 
         public async Task UpdateAsync(Guid id, UpdateOwnerDto dto)
         {
-            var owner = await unitOfWork.Owners.GetByIdAsync(id);
+            var owner = await unitOfWork.SpecificOwners.GetByIdAsync(id);
 
             if (owner == null)
                 throw new Exception("Owner not found");
@@ -112,7 +112,7 @@ namespace Application.Services.OwnerServices
             owner.profile = dto.Profile;
             owner.Avatar = dto.Avatar;
 
-            unitOfWork.Owners.Update(owner);
+            unitOfWork.SpecificOwners.Update(owner);
             await unitOfWork.SaveAsync();
 
 

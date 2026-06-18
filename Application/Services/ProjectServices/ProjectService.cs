@@ -22,7 +22,7 @@ namespace Application.Services.ProjectServices
 
         public async Task<Guid> CreateAsync(CreateProjectDto dto)
         {
-            var owner = await unitOfWork.Owners.GetByIdAsync(dto.OwnerId);
+            var owner = await unitOfWork.SpecificOwners.GetByIdAsync(dto.OwnerId);
 
             if (owner == null)
                 throw new Exception("Owner not found");

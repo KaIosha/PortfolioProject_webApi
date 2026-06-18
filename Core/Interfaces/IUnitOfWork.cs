@@ -2,11 +2,10 @@
 
 namespace Core.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork:IDisposable
     {
-        IGenericReposotiry<Owner> Owners { get; }
         IGenericReposotiry<PortfolioItem> PortfolioItems { get; }
-        public IOwnerReposotiry SpecificOwners { get; }
+        IOwnerReposotiry SpecificOwners { get; }
         Task SaveAsync();
     }
 }

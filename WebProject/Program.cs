@@ -5,6 +5,7 @@ using Application.Services.OwnerServices;
 using Application.Services.ProjectServices;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Repository;
 using Infrastructure.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,17 +24,19 @@ namespace WebProject
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+            builder.Services.AddScoped(typeof(IGenericReposotiry<>),typeof(GenericRepository<>));
+            builder.Services.AddScoped<IOwnerReposotiry, OwnerRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IOwnerService, OwnerService>();
-            builder.Services.AddScoped<IProjectService, ProjectService > ();
+            builder.Services.AddScoped<IProjectService, ProjectService>();
 
 
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(
                     builder.Configuration.GetConnectionString("DefaultConnection"));
-            }); 
-            
+            });
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

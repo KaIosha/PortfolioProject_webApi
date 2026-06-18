@@ -13,24 +13,28 @@ namespace Infrastructure.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly DataContext _context;
-
-        public IGenericReposotiry<Owner> Owners { get; }
+        private readonly DataContext Context;
         public IGenericReposotiry<PortfolioItem> PortfolioItems { get; }
-
         public IOwnerReposotiry SpecificOwners { get; }
 
-        public UnitOfWork(DataContext context)
+
+        public UnitOfWork(DataContext context
+            , IGenericReposotiry<PortfolioItem> PortfolioItem,
+            IOwnerReposotiry SpecificOwners)
         {
-            _context = context;
-            Owners = new GenericRepository<Owner>(_context);
-            PortfolioItems = new GenericRepository<PortfolioItem>(_context);
-            SpecificOwners = new OwnerRepository(_context);
+            this.Context = context;
+            this.PortfolioItems = PortfolioItem;
+            this.SpecificOwners = SpecificOwners;
         }
 
         public async Task SaveAsync()
         {
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
+        }
+
+        public void Dispose()
+        {
+            Context.Dispose();
         }
     }
 }
